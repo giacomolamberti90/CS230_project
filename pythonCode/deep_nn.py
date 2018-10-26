@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import pdb 
 
 from util import *
 
@@ -37,16 +38,23 @@ model = tf.keras.Sequential()
 
 # layers
 np.random.seed(1)
+#model.add(tf.keras.layers.Flatten())
+#model.add(tf.keras.layers.Dense(units=3, activation='tanh', input_shape=x_train.shape))
+#model.add(tf.keras.layers.Dense(units=1, activation='tanh'))
 model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(units=3, activation='tanh', input_shape=x_train.shape))
+model.add(tf.keras.layers.Dense(units=10, activation = 'relu', input_shape = x_train.shape))
+model.add(tf.keras.layers.Dense(units=5, activation = 'relu', input_shape = x_train.shape))
+model.add(tf.keras.layers.Dense(units=3, activation = 'relu', input_shape = x_train.shape))
 model.add(tf.keras.layers.Dense(units=1, activation='tanh'))
 
-# loss
-model.compile(optimizer='rmsprop', loss='mse')
+## loss
+#model.compile(optimizer='rmsprop', loss='mse')
+model.compile(optimizer='adam', loss='mse')
 
 # train
 np.random.seed(1)
-model.fit(x_train, y_train, epochs=100)
+#model.fit(x_train, y_train, epochs=100)
+model.fit(x_train, y_train, epochs=300)
 
 loss_and_metrics = model.evaluate(x_test, y_test)
 
@@ -85,3 +93,4 @@ tile_A180.plot_RMSProfiles(y_nn_A180)
 plt.figure(figsize=(15,8))
 tile_B0.plot_RMSProfiles(y_nn_B0)
 tile_B180.plot_RMSProfiles(y_nn_B180)
+plt.show()

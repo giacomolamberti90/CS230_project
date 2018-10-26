@@ -47,7 +47,8 @@ class tileA(tile):
         super().__init__()
                 
         # read pressure taps
-        self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_A')[:,1:3]
+        #self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_A')[:,1:3]
+        self.taps = np.genfromtxt('/home/bigwillmc/Desktop/CS230_project/PoliMi/taps_A')[:,1:3]
                     
     def plot_RMSProfiles(self, y):
                     
@@ -74,7 +75,8 @@ class tileB(tile):
         super().__init__()
 
         # read pressure taps
-        self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_B')[:,3:]
+        #self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_B')[:,1:3]
+        self.taps = np.genfromtxt('/home/bigwillmc/Desktop/CS230_project/PoliMi/taps_B')[:,3:]
         
     def plot_RMSProfiles(self, y):
 
