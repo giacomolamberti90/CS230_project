@@ -34,10 +34,10 @@ class tile():
         levels = np.arange(0, 0.5, 0.005)
         
         # plot rms contour
-        #plt.rcParams.update({'font.size': 20})               
+        plt.rcParams.update({'font.size': 16})
         plt.tricontourf(triang, np.reshape(y, (len(y),)), levels=levels, cmap='hot_r')
         plt.plot(self.coords[:,0], self.coords[:,1], '.k', markersize=1)
-        plt.xlabel(r"$x[m]$"); plt.ylabel(r"$y[m]$")        
+        plt.xlabel(r"$x[m]$"); plt.ylabel(r"$y[m]$")
         plt.tight_layout()
         
                 
@@ -48,7 +48,7 @@ class tileA(tile):
                 
         # read pressure taps
         #self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_A')[:,1:3]
-        self.taps = np.genfromtxt('/home/bigwillmc/Desktop/CS230_project/PoliMi/taps_A')[:,1:3]
+        self.taps = np.genfromtxt('../PoliMi/taps_A')[:,1:3]
                     
     def plot_RMSProfiles(self, y):
                     
@@ -76,7 +76,7 @@ class tileB(tile):
 
         # read pressure taps
         #self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_B')[:,1:3]
-        self.taps = np.genfromtxt('/home/bigwillmc/Desktop/CS230_project/PoliMi/taps_B')[:,3:]
+        self.taps = np.genfromtxt('../PoliMi/taps_B')[:,3:]
         
     def plot_RMSProfiles(self, y):
 
