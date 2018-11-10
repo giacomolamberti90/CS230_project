@@ -47,7 +47,6 @@ class tileA(tile):
         super().__init__()
                 
         # read pressure taps
-        #self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_A')[:,1:3]
         self.taps = np.genfromtxt('../PoliMi/taps_A')[:,1:3]
                     
     def plot_RMSProfiles(self, y):
@@ -75,7 +74,6 @@ class tileB(tile):
         super().__init__()
 
         # read pressure taps
-        #self.taps = np.genfromtxt('/home/jack/Desktop/NN/PoliMi/taps_B')[:,1:3]
         self.taps = np.genfromtxt('../PoliMi/taps_B')[:,3:]
         
     def plot_RMSProfiles(self, y):
@@ -107,10 +105,8 @@ def plot(y_exp, y_pred):
     plt.xlabel(r"$C_{p',exp}$"); plt.ylabel(r"$C_{p',nn}$")
     plt.xlim([0,0.5]); plt.ylim([0,0.5])
 
-# Directory containing data
-pathUQ = '/home/jack/Desktop/Research/windLoading/RANS/highRise/\
-UQ/00deg/aleatoric/workdirs/workdir.'
-     
+# data structures
+
 # tile A at 0deg       
 tile_A0 = tileA()
 tile_A0.angle  = 0
