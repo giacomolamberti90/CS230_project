@@ -79,7 +79,7 @@ tile_A200.x      = np.genfromtxt('../RANS/features_A200.out')
 
 # tile A at 200deg       
 tile_A260 = tileA()
-tile_A260.angle  = 200
+tile_A260.angle  = 260
 tile_A260.coords = np.genfromtxt('../PoliMi/coords_A0')
 tile_A260.meanCp = np.genfromtxt('../RANS/cp_mean_A260.out')
 tile_A260.rmsCp  = np.genfromtxt('../PoliMi/cp_rms_exp_A260.out')
@@ -168,14 +168,16 @@ tile_B260.rmsCp  = np.genfromtxt('../PoliMi/cp_rms_exp_B260.out')
 tile_B260.k      = np.genfromtxt('../RANS/k_B260.out')/kref
 tile_B260.U      = np.genfromtxt('../RANS/U_B260.out')/Uref
 tile_B260.x      = np.genfromtxt('../RANS/features_B260.out')
-
+                   
 # data frames
 data_A0   = tile_A0.pressureDataFrame();   data_B0   = tile_B0.pressureDataFrame()
 data_A10  = tile_A10.pressureDataFrame();  data_B10  = tile_B10.pressureDataFrame()
 data_A20  = tile_A20.pressureDataFrame();  data_B20  = tile_B20.pressureDataFrame()
+data_A170 = tile_A170.pressureDataFrame(); data_B170 = tile_B170.pressureDataFrame()
 data_A180 = tile_A180.pressureDataFrame(); data_B180 = tile_B180.pressureDataFrame()
 data_A190 = tile_A190.pressureDataFrame(); data_B190 = tile_B190.pressureDataFrame()
 data_A200 = tile_A200.pressureDataFrame(); data_B200 = tile_B200.pressureDataFrame()
+data_A260 = tile_A260.pressureDataFrame(); data_B260 = tile_B260.pressureDataFrame()
 
 # 2D images
 X_A0, Y_A0     = tile_A0.flat_to_image()
@@ -201,6 +203,7 @@ X_B200, Y_B200 = tile_B200.flat_to_image()
 
 # whole building --------------------------------------------------------------
 highRise = highRise()
+highRise.angle  = 0
 highRise.coords = np.genfromtxt('../LES/dataframe')[:,1:]
 highRise.rmsCp  = np.genfromtxt('../LES/dataframe')[:,0]
 highRise.meanCp = np.genfromtxt('../RANS/dataframe')[:,0]
