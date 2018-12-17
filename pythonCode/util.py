@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib.tri as tri
 import matplotlib.cm as cm
 
+n = 7
+
 class tile():
     
     def __init__(self):
@@ -22,8 +24,8 @@ class tile():
     def pressureDataFrame(self):
 
         # define data-frame
-        data = np.column_stack((self.rmsCp, self.meanCp, self.k, self.U, self.x))
-        dataFrame = pd.DataFrame(data, columns=['rmsCp', 'meanCp', 'k', 'U', 'x1','x5', 'x6', 'x7', 'x11'])  
+        data = np.column_stack((self.rmsCp, self.meanCp, self.k, self.U, self.x[:,1:]))
+        dataFrame = pd.DataFrame(data, columns=['rmsCp', 'meanCp', 'k', 'U', 'x5', 'x6', 'x7', 'x11'])  
         
         return dataFrame
     
@@ -34,11 +36,12 @@ class tile():
         levels = np.arange(0, 0.5, 0.005)
         
         # plot rms contour
-        plt.rcParams.update({'font.size': 16})
+        plt.rcParams.update({'font.size': 20})
+        plt.locator_params(nbins=2)
         plt.tricontourf(triang, np.reshape(y, (len(y),)), levels=levels, cmap='hot_r')
         plt.plot(self.coords[:,0], self.coords[:,1], '.k', markersize=1)
         plt.xlabel(r"$x[m]$"); plt.ylabel(r"$y[m]$"); plt.xlim(0,1); plt.ylim(0,2)
-        plt.tight_layout() 
+        plt.tight_layout()
                     
     def plot_Contour(self, y, levels):
                
@@ -46,10 +49,11 @@ class tile():
         triang = tri.Triangulation(self.coords[:,0], self.coords[:,1])
         
         # plot rms contour
-        plt.rcParams.update({'font.size': 16})
+        plt.rcParams.update({'font.size': 20})
+        plt.locator_params(nbins=2)
         plt.tricontourf(triang, np.reshape(y, (len(y),)), levels=levels, cmap='hot_r')
         plt.plot(self.coords[:,0], self.coords[:,1], '.k', markersize=1)
-        plt.xlabel(r"$x[m]$"); plt.ylabel(r"$y[m]$")
+        plt.xlabel(r"$x[m]$"); plt.ylabel(r"$y[m]$");  plt.xlim(0,1); plt.ylim(0,2)
         plt.tight_layout()                        
         
 class tileA(tile):
@@ -73,7 +77,7 @@ class tileA(tile):
             ind = [i for i, x in enumerate(ind_A) if x == k]
                 	
             plt.subplot(3,5,k)
-            plt.plot(self.coords[ind,0], self.rmsCp[ind], '.r') 
+            plt.plot(self.coords[ind,0], self.rmsCp[ind], '.r')
             plt.plot(self.coords[ind,0], y[ind], '.k')
             plt.xlim([0, 1]); plt.ylim([0, 0.5])
             plt.xlabel(r"$x[m]$"); plt.ylabel(r"$C_{p'}$")
@@ -85,7 +89,7 @@ class tileA(tile):
         taps = np.genfromtxt('../PoliMi/taps_A')[:,1:]
         
         # initialize image
-        input_image  = np.zeros((1,19,15,8))
+        input_image  = np.zeros((1,19,15,n))
         output_image = np.zeros((1,19,15,1))
         
         # indices tile A
@@ -97,11 +101,12 @@ class tileA(tile):
             input_image[0, row-1, col-1, 0] = self.meanCp[i]
             input_image[0, row-1, col-1, 1] = self.k[i]/1.4
             input_image[0, row-1, col-1, 2] = self.U[i]/10.3
-            input_image[0, row-1, col-1, 3] = self.x[i,0]
-            input_image[0, row-1, col-1, 4] = self.x[i,1]
-            input_image[0, row-1, col-1, 5] = self.x[i,2]
-            input_image[0, row-1, col-1, 6] = self.x[i,3]
-            input_image[0, row-1, col-1, 7] = self.x[i,4]
+            #input_image[0, row-1, col-1, 3] = self.x[i,0]
+            input_image[0, row-1, col-1, 3] = self.x[i,1]
+            input_image[0, row-1, col-1, 4] = self.x[i,2]
+            input_image[0, row-1, col-1, 5] = self.x[i,3]
+            input_image[0, row-1, col-1, 6] = self.x[i,4]
+            #input_image[0, row-1, col-1, 7] = self.angle
             
             # labels
             output_image[0, row-1, col-1, 0] = self.rmsCp[i] 
@@ -161,7 +166,7 @@ class tileB(tile):
         taps = np.genfromtxt('../PoliMi/taps_B')[:,1:]
         
         # initialize image
-        input_image  = np.zeros((1,19,15,8))
+        input_image  = np.zeros((1,19,15,n))
         output_image = np.zeros((1,19,15,1))
         
         # indices tile A
@@ -173,11 +178,12 @@ class tileB(tile):
             input_image[0, row-1, col-1, 0] = self.meanCp[i]
             input_image[0, row-1, col-1, 1] = self.k[i]/1.4
             input_image[0, row-1, col-1, 2] = self.U[i]/10.3
-            input_image[0, row-1, col-1, 3] = self.x[i,0]
-            input_image[0, row-1, col-1, 4] = self.x[i,1]
-            input_image[0, row-1, col-1, 5] = self.x[i,2]
-            input_image[0, row-1, col-1, 6] = self.x[i,3]
-            input_image[0, row-1, col-1, 7] = self.x[i,4]
+            #input_image[0, row-1, col-1, 3] = self.x[i,0]
+            input_image[0, row-1, col-1, 3] = self.x[i,1]
+            input_image[0, row-1, col-1, 4] = self.x[i,2]
+            input_image[0, row-1, col-1, 5] = self.x[i,3]
+            input_image[0, row-1, col-1, 6] = self.x[i,4]
+            #input_image[0, row-1, col-1, 7] = self.angle
             
             # labels
             output_image[0, row-1, col-1, 0] = self.rmsCp[i] 
@@ -210,7 +216,7 @@ class highRise(tile):
     def flat_to_image(self):
                 
         # initialize image
-        input_image  = np.zeros((1,40,20,8))
+        input_image  = np.zeros((1,40,20,n))
         output_image = np.zeros((1,40,20,1))
         
         # indices all
@@ -221,12 +227,13 @@ class highRise(tile):
                 input_image[0,i,j,0] = self.meanCp[i*20+j]
                 input_image[0,i,j,1] = self.k[i*20+j]/1.4
                 input_image[0,i,j,2] = self.U[i*20+j]/10.3
-                input_image[0,i,j,3] = self.x[i*20+j,0]
-                input_image[0,i,j,4] = self.x[i*20+j,1]
-                input_image[0,i,j,5] = self.x[i*20+j,2]
-                input_image[0,i,j,6] = self.x[i*20+j,3]
-                input_image[0,i,j,7] = self.x[i*20+j,4]
-                
+                #input_image[0,i,j,3] = self.x[i*20+j,0]
+                input_image[0,i,j,3] = self.x[i*20+j,1]
+                input_image[0,i,j,4] = self.x[i*20+j,2]
+                input_image[0,i,j,5] = self.x[i*20+j,3]
+                input_image[0,i,j,6] = self.x[i*20+j,4]
+                #input_image[0,i,j,7] = self.angle
+                           
                 # labels
                 output_image[0,i,j,0] = self.rmsCp[i*20+j] 
                         
