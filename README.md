@@ -1,4 +1,6 @@
-# CS230_project
+# Deep learning to predict extreme wind loads on high-rise buildings
+
+# Giacomo Lamberti & William McCloskey
 
 # PoliMi 
 
