@@ -46,8 +46,10 @@ def train(hparams):
     
     '''
     # train on tiles at 0-180
-    data_train = data_A0.append([data_A180, data_B0, data_B180], ignore_index=True)
-    data_dev   = data_B20.append(data_A20, ignore_index=True)
+    data_train = data_A0.append([data_A180, data_B0, data_B180, data_A10, data_A170,
+                                 data_B10, data_B170, data_A260, data_B190], ignore_index=True)
+
+    data_dev   = data_B0.append([data_B180, data_A190, data_B260], ignore_index=True)
     
     # training set
     x_train = np.ndarray((data_train.shape[0], n)); y_train = np.ndarray((data_train.shape[0], 1))
@@ -118,13 +120,18 @@ def train(hparams):
         y_nn_train = model.predict(x_train)
         y_nn_dev   = model.predict(x_dev)
 
+        # indices of features
+        ix = np.arange(1,n+1)
+
         # prediction on pressure tiles
-        y_nn_A0   = model.predict(data_A0.values[:,1:n+1]);   y_nn_B0   = model.predict(data_B0.values[:,1:n+1])
-        y_nn_A10  = model.predict(data_A10.values[:,1:n+1]);  y_nn_B10  = model.predict(data_B10.values[:,1:n+1])
-        y_nn_A20  = model.predict(data_A20.values[:,1:n+1]);  y_nn_B20  = model.predict(data_B20.values[:,1:n+1])
-        y_nn_A180 = model.predict(data_A180.values[:,1:n+1]); y_nn_B180 = model.predict(data_B180.values[:,1:n+1])
-        y_nn_A190 = model.predict(data_A190.values[:,1:n+1]); y_nn_B190 = model.predict(data_B190.values[:,1:n+1])
-        y_nn_A200 = model.predict(data_A200.values[:,1:n+1]); y_nn_B200 = model.predict(data_B200.values[:,1:n+1])
+        y_nn_A0   = model.predict(data_A0.values[:,ix]);   y_nn_B0   = model.predict(data_B0.values[:,ix])
+        y_nn_A10  = model.predict(data_A10.values[:,ix]);  y_nn_B10  = model.predict(data_B10.values[:,ix])
+        y_nn_A20  = model.predict(data_A20.values[:,ix]);  y_nn_B20  = model.predict(data_B20.values[:,ix])
+        y_nn_A170 = model.predict(data_A170.values[:,ix]); y_nn_B170 = model.predict(data_B170.values[:,ix])
+        y_nn_A180 = model.predict(data_A180.values[:,ix]); y_nn_B180 = model.predict(data_B180.values[:,ix])
+        y_nn_A190 = model.predict(data_A190.values[:,ix]); y_nn_B190 = model.predict(data_B190.values[:,ix])
+        y_nn_A200 = model.predict(data_A200.values[:,ix]); y_nn_B200 = model.predict(data_B200.values[:,ix])
+        y_nn_A260 = model.predict(data_A260.values[:,ix]); y_nn_B260 = model.predict(data_B260.values[:,ix])
         
         # prediction on whole building
         y_nn = model.predict(data_highRise.values[:,1:n+1]);
