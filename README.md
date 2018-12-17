@@ -10,16 +10,14 @@ A0 means tile A at 0 deg
 A180 means tile A at 180 deg...
 
 # RANS
-directory that contains the RANS simulations data:
-	- mean pressure coefficient (local)
-	- turbulence kinetic energy (local)
-	- mean velocity at inlet (just function of height)
+directory that contains the RANS simulations data
 	
 # LES
 directory that contains the LES simulations data (high-fidelity simulations), 
-not used at this moement.
+used only at test time.
 
 # pythonCode
 directory containing the code:
-	- main.py: fit the neural network and make plots
+	- trainer.py: fit the artificial neural network
+	- trainer_conv2D.py: fit the convolutional neural network
 	- util.py: functions to read and post-process data
